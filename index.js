@@ -1,5 +1,5 @@
 const server = require("./server");
 
-server.start({ port: 4000 }, ({ port }) => {
+server.start({ port: process.env.PORT || 4000 }, ({ port }) => {
     console.log("Server on " + port);
 });
