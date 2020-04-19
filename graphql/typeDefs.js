@@ -2,9 +2,9 @@ module.exports = `
     type Query {
         ping: String!
         editoriales: [Editorial!]!
-        libros: [Libro!]!
-        autores: [Autor!]!
-        librosAutores: [LibroAutor!]!
+        libros: [Libro]!
+        autores: [Autor]!
+        librosAutores: [LibroAutor]!
     }
 
     input LibroInput {

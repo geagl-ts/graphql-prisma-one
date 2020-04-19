@@ -1,14 +1,14 @@
 const prisma = require("../../database");
 
 const Mutation = {
-    agregarLibro: async (_, args) => {
+    agregarLibro: async (_, { ideditorial, input }) => {
         const libro = await prisma.libro.create({
             data: {
-                nombre: args.nombre,
-                ade: args.ade,
+                nombre: input.nombre,
+                ade: input.ade,
                 editorial: {
                     connect: {
-                        id: args.ideditorial,
+                        id: ideditorial,
                     },
                 },
             },
