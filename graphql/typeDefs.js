@@ -5,6 +5,7 @@ module.exports = `
         libros: [Libro!]!
         libro(id: Int!): Libro
         autores: [Autor!]!
+        autor(id: Int!): Autor
         librosAutores: [LibroAutor!]!
     }
 

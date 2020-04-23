@@ -82,6 +82,25 @@ const Query = {
 
         return autores;
     },
+    autor: async (_, { id }) => {
+        return await prisma.autor.findOne({
+            where: {
+                id,
+            },
+            include: {
+                libros: {
+                    select: {
+                        id: true,
+                        libro: {
+                            include: {
+                                editorial: true,
+                            },
+                        },
+                    },
+                },
+            },
+        });
+    },
     librosAutores: async () => {
         const librosAutores = await prisma.libroAutor.findMany({
             orderBy: { id: "asc" },
