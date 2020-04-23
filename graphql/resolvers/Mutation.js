@@ -7,7 +7,7 @@ const Mutation = {
             data: {
                 nombre: input.nombre,
                 ade: input.ade,
-                autor: {
+                editorial: {
                     connect: {
                         id: ideditorial,
                     },
@@ -35,31 +35,31 @@ const Mutation = {
             return "A ocurrido un error";
         }
     },
-    // * mutaciones de autor
+    // * mutaciones de editorial
     agregarEditorial: async (_, args) => {
-        const autor = await prisma.autor.create({
+        const editorial = await prisma.editorial.create({
             data: {
                 nombre: args.nombre,
             },
         });
 
-        return autor;
+        return editorial;
     },
     actualizarEditorial: async (_, { id, nombre }) => {
         try {
-            const autor = await prisma.autor.update({
+            const editorial = await prisma.editorial.update({
                 where: { id },
                 data: { nombre },
             });
 
-            return autor;
+            return editorial;
         } catch (e) {
             return null;
         }
     },
     eliminarEditorial: async (_, { id }) => {
         try {
-            await prisma.autor.delete({ where: { id } });
+            await prisma.editorial.delete({ where: { id } });
 
             return "Eliminado";
         } catch (e) {
