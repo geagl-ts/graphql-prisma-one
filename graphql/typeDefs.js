@@ -1,8 +1,9 @@
 module.exports = `
     type Query {
-        ping: String!
         editoriales: [Editorial!]!
+        editorial(id: Int!): Editorial
         libros: [Libro!]!
+        libro(id: Int!): Libro
         autores: [Autor!]!
         librosAutores: [LibroAutor!]!
     }
@@ -14,11 +15,16 @@ module.exports = `
 
     type Mutation {
         agregarAutor(nombre: String!): Autor
+        actualizarAutor(id: Int!, nombre: String!): Autor
+        eliminarAutor(id: Int!): String!
 
         agregarLibro(input: LibroInput, ideditorial: Int!): Libro
         actualizarLibro(id: Int!, input: LibroInput): Libro
+        eliminarLibro(id: Int!): String!
 
         agregarEditorial(nombre: String!): Editorial 
+        actualizarEditorial(id: Int!, nombre: String!): Editorial
+        eliminarEditorial(id: Int!): String!
 
         asignarLibroAutor(idautor: Int!, idlibro: Int!): String!
     }
@@ -26,21 +32,21 @@ module.exports = `
     type Editorial{
         id: ID!
         nombre: String!
-        libros: [Libro!]!
+        libros: [Libro]
     }
 
     type Libro{
         id: ID!
         nombre: String!
-        ade: String!
+        ade: String
         editorial: Editorial!
-        autores: [Autores!]!
+        autores: [Autores]
     }
 
     type Autor{
         id: ID!
         nombre: String!
-        libros: [Libros!]! 
+        libros: [Libros]
     }
 
     type Autores {

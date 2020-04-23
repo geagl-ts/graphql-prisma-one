@@ -1,14 +1,15 @@
 const prisma = require("../../database");
 
 const Mutation = {
-    agregarLibro: async (_, args) => {
+    // * mutations de libros
+    agregarLibro: async (_, { ideditorial, input }) => {
         const libro = await prisma.libro.create({
             data: {
-                nombre: args.nombre,
-                ade: args.ade,
-                editorial: {
+                nombre: input.nombre,
+                ade: input.ade,
+                autor: {
                     connect: {
-                        id: args.ideditorial,
+                        id: ideditorial,
                     },
                 },
             },
@@ -26,15 +27,46 @@ const Mutation = {
 
         return libro;
     },
+    eliminarLibro: async (_, { id }) => {
+        try {
+            await prisma.libro.delete({ where: { id } });
+            return "Eliminado";
+        } catch {
+            return "A ocurrido un error";
+        }
+    },
+    // * mutaciones de autor
     agregarEditorial: async (_, args) => {
-        const editorial = await prisma.editorial.create({
+        const autor = await prisma.autor.create({
             data: {
                 nombre: args.nombre,
             },
         });
 
-        return editorial;
+        return autor;
     },
+    actualizarEditorial: async (_, { id, nombre }) => {
+        try {
+            const autor = await prisma.autor.update({
+                where: { id },
+                data: { nombre },
+            });
+
+            return autor;
+        } catch (e) {
+            return null;
+        }
+    },
+    eliminarEditorial: async (_, { id }) => {
+        try {
+            await prisma.autor.delete({ where: { id } });
+
+            return "Eliminado";
+        } catch (e) {
+            return "A ocurrido un error";
+        }
+    },
+    // * mutaciones de autor
     agregarAutor: async (_, args) => {
         const autor = await prisma.autor.create({
             data: {
@@ -43,6 +75,27 @@ const Mutation = {
         });
 
         return autor;
+    },
+    actualizarAutor: async (_, { id, nombre }) => {
+        try {
+            const autor = await prisma.autor.update({
+                where: { id },
+                data: { nombre },
+            });
+
+            return autor;
+        } catch (e) {
+            return null;
+        }
+    },
+    eliminarAutor: async (_, { id }) => {
+        try {
+            await prisma.autor.delete({ where: { id } });
+
+            return "Eliminado";
+        } catch (e) {
+            return "A ocurrido un error";
+        }
     },
     asignarLibroAutor: async (_, { idautor, idlibro }) => {
         try {

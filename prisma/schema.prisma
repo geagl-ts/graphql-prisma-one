@@ -22,16 +22,16 @@ model Editorial {
 model Libro {
   ade         String?
   id          Int          @default(autoincrement()) @id
-  ideditorial Int
+  ideditorial Int?
   nombre      String?
-  editorial   Editorial    @relation(fields: [ideditorial], references: [id])
+  editorial   Editorial?   @relation(fields: [ideditorial], references: [id])
   autores     LibroAutor[]
 }
 
 model LibroAutor {
-  id      Int   @default(autoincrement()) @id
-  idautor Int
-  idlibro Int
-  autor   Autor @relation(fields: [idautor], references: [id])
-  libro   Libro @relation(fields: [idlibro], references: [id])
+  id      Int    @default(autoincrement()) @id
+  idautor Int?
+  idlibro Int?
+  autor   Autor? @relation(fields: [idautor], references: [id])
+  libro   Libro? @relation(fields: [idlibro], references: [id])
 }
